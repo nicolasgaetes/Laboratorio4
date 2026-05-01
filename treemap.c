@@ -108,12 +108,12 @@ void insertTreeMap(TreeMap * tree, void* key, void * value) {
 // Si x no tiene hijo izquierdo se retorna el mismo nodo.
 
 TreeNode * minimum(TreeNode * x){
-    if(x == NULL) return NULL;
-    while(x->left != NULL){
-        x = x->left;
+    if(x == NULL) return NULL; //si el nodo es NULL, no tengo que buscar nada
+    while(x->left != NULL){ //mientras exista hijo izquierdo
+        x = x->left; //avanzo al hijo izquierdo
     }
 
-    return x;
+    return x; //cuando ya no hay hijo izq, significa que estamos en el minimo
 }
 
 // 5.- Implemente la función void removeNode(TreeMap * tree, TreeNode* node). 
@@ -125,6 +125,18 @@ TreeNode * minimum(TreeNode * x){
 // Reemplace los datos (key,value) de node con los del nodo "minimum". Elimine el nodo minimum (para hacerlo puede usar la misma función removeNode).
 
 void removeNode(TreeMap * tree, TreeNode* node) {
+    if(node->left == NULL || node->right == NULL){
+        TreeNode* child;
+        if(node->left != NULL)
+            chiled = node->left;
+        else
+            child = node->right;
+        if(node->parent == NULL){
+            tree->root = child;
+            if(child != NULL)
+                child->parent = NULL;
+        }
+    }
 
 }
 
