@@ -190,7 +190,13 @@ Pair * nextTreeMap(TreeMap * tree) {
     }
 
     TreeNode* aux = current->parent;
-    return NULL;
+    while(aux != NULL && tree->lower_than(aux->pair->key, current->pair->key)){
+        current = aux;
+        aux = aux->parent;
+    }
+    tree->current = aux;
+    if(aux == NULL) return NULL;
+    return aux->pair;
 }
 
 // 7. La función Pair* upperBound(TreeMap* tree, void* key) retorna el Pair con clave igual a key. 
