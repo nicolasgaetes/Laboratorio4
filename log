@@ -81,3 +81,29 @@ treemap.c:95:21: error: assignment to ‘TreeNode *’ from incompatible pointer
    95 |     newNode->parent = parent;
       |                     ^
 71d95a1
+Fri May  1 03:57:20 AM UTC 2026: 
+ treemap.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+Compilation failed
+In file included from test.c:4:
+treemap.c: In function ‘insertTreeMap’:
+treemap.c:81:5: error: unknown type name ‘TreeNod’; did you mean ‘TreeNode’?
+   81 |     TreeNod* parent = NULL;
+      |     ^~~~~~~
+      |     TreeNode
+treemap.c:83:16: error: assignment to ‘int *’ from incompatible pointer type ‘TreeNode *’ [-Wincompatible-pointer-types]
+   83 |         parent = aux;
+      |                ^
+treemap.c:95:21: error: assignment to ‘TreeNode *’ from incompatible pointer type ‘int *’ [-Wincompatible-pointer-types]
+   95 |     newNode->parent = parent;
+      |                     ^
+treemap.c:96:36: error: request for member ‘pair’ in something not a structure or union
+   96 |     if(tree->lower_than(key, parent->pair->key)){
+      |                                    ^~
+treemap.c:97:15: error: request for member ‘left’ in something not a structure or union
+   97 |         parent->left = newNode;
+      |               ^~
+treemap.c:100:15: error: request for member ‘right’ in something not a structure or union
+  100 |         parent->right = newNode;
+      |               ^~
+ad30e7c
