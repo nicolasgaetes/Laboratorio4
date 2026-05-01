@@ -125,37 +125,38 @@ TreeNode * minimum(TreeNode * x){
 // Reemplace los datos (key,value) de node con los del nodo "minimum". Elimine el nodo minimum (para hacerlo puede usar la misma función removeNode).
 
 void removeNode(TreeMap * tree, TreeNode* node) {
+    //caso 1 y 2: 0 o 1 hijo
     if(node->left == NULL || node->right == NULL){
-        TreeNode* child;
+        TreeNode* child; //child sera el unico hijo o si no tiene hijos
         if(node->left != NULL)
             child = node->left;
         else
             child = node->right;
-        if(node->parent == NULL){
-            tree->root = child;
+        if(node->parent == NULL){ //si el nodo a eliminar es la raiz
+            tree->root = child; //la raiz pasa a ser su hijo (puede ser NULL)
             if(child != NULL)
                 child->parent = NULL;
         }
-        else{
-            if(node == node->parent->left){
+        else{ //si no es raiz, tenemos que actualizar el puntero del padre
+            if(node == node->parent->left){ //si node es hijo izquierdo
                 node->parent->left = child;
             }
-            else{
+            else{ //si es hijo derecho
                 node->parent->right = child;
             }
-            if(child != NULL){
+            if(child != NULL){ //si existe hijo, actualizamos su padre
                 child->parent = node->parent;
             }
         }
-        free(node->pair);
+        free(node->pair); //liberamos memoria del nodo eliminado
         free(node);
     }
-
+    //caso 2: 2 hijos
     else{
-        TreeNode* minNode = minimum(node->right);
-        node->pair->key = minNode->pair->key;
+        TreeNode* minNode = minimum(node->right); //busco el minimo del subarbol derecho
+        node->pair->key = minNode->pair->key; //copio key y value del minimo al nodo actual
         node->pair->value = minNode->pair->value;
-        removeNode(tree, minNode);
+        removeNode(tree, minNode); //elimino el nodo minimo de forma recursiva
     }
 
 }
