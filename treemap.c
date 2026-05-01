@@ -207,26 +207,26 @@ Pair * nextTreeMap(TreeMap * tree) {
 // Finalmente retorne el par del nodo ub_node.
 
 Pair * upperBound(TreeMap * tree, void* key) {
-    TreeNode* aux = tree->root;
-    TreeNode* ub_node = NULL;
-    while(aux != NULL){
-        if(is_equal(tree, key, aux->pair->key)){
-            tree->current = aux;
-            return aux->pair;
+    TreeNode* aux = tree->root; //nodo aux para recorrer el arbol
+    TreeNode* ub_node = NULL; //nodo para guardar el mejor candidato
+    while(aux != NULL){ //recorro el arbol
+        if(is_equal(tree, key, aux->pair->key)){ //si encuentro la clave exacta
+            tree->current = aux; //actualizo el current
+            return aux->pair; //retorno directamente
         }
-        if(tree->lower_than(key, aux->pair->key)){
-            ub_node = aux;
-            aux = aux->left;
+        if(tree->lower_than(key, aux->pair->key)){ //si la key es menor a la clave actual
+            ub_node = aux; //este nodo puede ser candidato
+            aux = aux->left; //busco uno mas cercano por la izq
         }
         else{
-            aux = aux->right;
+            aux = aux->right;//si la key es mayor a clave actual, vamos a la der
         }
     }
-    if(ub_node != NULL){
-        tree->current = ub_node;
-        return ub_node->pair;
+    if(ub_node != NULL){ //si encuentro un candidato
+        tree->current = ub_node; //actualizo el current
+        return ub_node->pair; //retorno su pair
     }
-    return NULL;
+    return NULL; //si no existe ningun nodo mayor o igual a key, retorno NULL
 }
 
 
