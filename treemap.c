@@ -176,27 +176,29 @@ void eraseTreeMap(TreeMap * tree, void* key){
 // Recuerde actualizar este puntero.
 
 Pair * firstTreeMap(TreeMap * tree) {
-    TreeNode* min = minimum(tree->root);
-    tree->current = min;
-    return min->pair;
+    TreeNode* min = minimum(tree->root); //obtengo el nodo minimo desde la raiz
+    tree->current = min; //se actualiza el current al minimo
+    return min->pair; //retorno el pair del nodo minimo
 }
 
 Pair * nextTreeMap(TreeMap * tree) {
     TreeNode* current = tree->current;
+    //caso 1: tiene hijo derecho
     if(current->right != NULL){
-        TreeNode* next = minimum(current->right);
-        tree->current = next;
-        return next->pair;
+        TreeNode* next = minimum(current->right); //el siguiente es el minimo del subarbol derecho
+        tree->current = next; //actualizo el current
+        return next->pair; //retorno su pair
     }
 
+    //caso 2: no tiene hijo derecho
     TreeNode* aux = current->parent;
-    while(aux != NULL && tree->lower_than(aux->pair->key, current->pair->key)){
+    while(aux != NULL && tree->lower_than(aux->pair->key, current->pair->key)){ //subo hasta encontrar un nodo mayor
         current = aux;
         aux = aux->parent;
     }
-    tree->current = aux;
-    if(aux == NULL) return NULL;
-    return aux->pair;
+    tree->current = aux; //actualizo el current
+    if(aux == NULL) return NULL; //si aux es NULL, no hay siguiente
+    return aux->pair; //retorno el siguiente
 }
 
 // 7. La función Pair* upperBound(TreeMap* tree, void* key) retorna el Pair con clave igual a key. 
